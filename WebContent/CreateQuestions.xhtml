@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+<f:view>
+<h:head><title>Create Questions</title></h:head>
+<h:body>
+
+<h2>Create Question</h2>
+
+<h:form>
+
+<table>
+	<tr>
+		<td>Event Date:</td>
+		<td><p:calendar id="data" value="#{questions.data}" navigator="false" mode="inline">
+			<p:ajax event="dateSelect" listener="#{questions.OnDateSelect}" update="gertaerak">
+			<f:ajax event="change" listener="#{questions.setCreateQuestionEnable}" update="enable"/>
+			</p:ajax>
+			</p:calendar>
+		</td>
+		<td>Events:</td>
+		<td><h:selectOneMenu id="gertaerak" value="#{questions.event}">
+				<f:ajax event="change" listener="#{questions.setCreateQuestionEnable}" update="enable"/>
+			<f:selectItems value="#{questions.events}"/>
+		</h:selectOneMenu></td>
+	</tr>
+	<tr>
+	<td>Question:</td>
+	<td><h:inputText id="question" value="#{questions.question}">
+			<f:ajax event="change" listener="#{questions.setCreateQuestionEnable}" update="enable"/>
+		</h:inputText>
+	</td>
+	</tr>
+	<tr>
+	<td>Min bet:</td>
+	<td>
+		<h:inputText id="min_bet" redisplay="true" value="#{questions.min_bet}">
+			<f:ajax event="change" listener="#{questions.setCreateQuestionEnable}" update="enable"/>
+		</h:inputText>
+	</td>
+	<td> <h:message for="min_bet" style="color:red" /></td>
+	</tr>
+
+</table>
+	<p>
+		
+		<h:commandButton id="enable" value="Create Question" disabled="#{questions.createQuestionEnable}" action="#{questions.saveQuestion}"/> <h:commandButton value="Close" action="#{questions.back}" />
+	</p>
+</h:form>
+</h:body>
+</f:view>
+</html>

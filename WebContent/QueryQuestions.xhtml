@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+<f:view>
+<h:head><title>Query Questions</title></h:head>
+<h:body>
+
+<h2>Query Questions</h2>
+
+<h:form id="nireForm">
+
+<table>
+
+<tr>
+
+<td>Event Date</td>
+<td><p:calendar id="data" value="#{questions.data}" navigator="false" mode="inline">
+		<p:ajax event="dateSelect" listener="#{questions.OnDateSelect}" update="taula">
+		</p:ajax>
+	</p:calendar>
+	
+</td>
+</tr>
+<tr> 
+<td> 
+
+	<p:dataTable id="taula" value="#{questions.events}" converter="omnifaces.SelectItemsConverter" 
+	selectionMode="single" selection="#{questions.event}" var="item" border="1" rowKey="#{item.eventNumber}">
+	<p:ajax event="rowSelect" listener="#{questions.onEventSelect}" update=":nireForm:galderak"></p:ajax>
+	<f:facet name="header">Events:#{questions.data}</f:facet>
+	<p:column headerText="Kodea">#{item.eventNumber}</p:column>
+	<p:column headerText="Event">#{item.description}</p:column>
+ 	</p:dataTable>
+ </td>
+ <td> 
+	 <p:dataTable id="galderak" value="#{questions.questions}" converter="omnifaces.SelectItemsConverter" var="item" border="1" >
+	<f:facet name="header">Questions #{item.description}</f:facet>
+	<p:column headerText="Number">#{item.questionNumber}</p:column>
+	<p:column headerText="Question">#{item.question}</p:column>
+	 </p:dataTable>
+ </td>
+</tr>
+<tr>
+<td>
+<h:commandButton value="Close" action="#{questions.back}" />
+</td>
+
+</tr>
+
+
+</table>
+
+</h:form>
+
+
+</h:body>
+</f:view>
+</html>

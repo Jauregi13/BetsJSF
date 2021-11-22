@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+<f:view>
+<h:head><title>Bets</title></h:head>
+<h:body>
+<h2>Select Option</h2>
+<h:form>
+<p>
+<h:commandButton value="Query Questions" outcome="QueryQuestions"  action="QueryQuestions?faces-redirect=true"/>
+</p>
+
+<p>
+<h:commandButton value="Create Questions" outcome="CreateQuestion" action="CreateQuestions?faces-redirect=true"/>
+</p>
+<h:messages></h:messages>
+</h:form>
+
+</h:body>
+</f:view>
+</html>
