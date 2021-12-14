@@ -17,39 +17,43 @@ xmlns:p="http://primefaces.org/ui">
 	<tr>
 		<td>Event Date:</td>
 		<td><p:calendar id="data" value="#{questions.data}" navigator="false" mode="inline">
-			<p:ajax event="dateSelect" listener="#{questions.OnDateSelect}" update="gertaerak">
-			<f:ajax event="change" listener="#{questions.setCreateQuestionEnable}" update="enable"/>
-			</p:ajax>
+			<p:ajax event="dateSelect" listener="#{questions.OnDateSelect}" update="gertaerak"></p:ajax>
+			<p:ajax event="change" listener="#{questions.setCreateQuestionEnable}" update="enable"/>
+			
 			</p:calendar>
 		</td>
 		<td>Events:</td>
-		<td><h:selectOneMenu id="gertaerak" value="#{questions.event}">
-				<f:ajax event="change" listener="#{questions.setCreateQuestionEnable}" update="enable"/>
+		<td><h:selectOneMenu id="gertaerak" value="#{questions.event}" converter="omnifaces.SelectItemsConverter">
 			<f:selectItems value="#{questions.events}"/>
+			<f:ajax event="change" listener="#{questions.setCreateQuestionEnable}" render="enable"/>
 		</h:selectOneMenu></td>
 	</tr>
 	<tr>
 	<td>Question:</td>
 	<td><h:inputText id="question" value="#{questions.question}">
+			<f:validateRequired />
 			<f:ajax event="change" listener="#{questions.setCreateQuestionEnable}" update="enable"/>
 		</h:inputText>
 	</td>
+	<td><h:message for="question" style="color:red" /></td>
 	</tr>
 	<tr>
 	<td>Min bet:</td>
 	<td>
 		<h:inputText id="min_bet" redisplay="true" value="#{questions.min_bet}">
+			<f:validateRequired />
+			<f:convertNumber integerOnly="true" type="number" />
 			<f:ajax event="change" listener="#{questions.setCreateQuestionEnable}" update="enable"/>
 		</h:inputText>
 	</td>
-	<td> <h:message for="min_bet" style="color:red" /></td>
+	<td><h:message for="min_bet" style="color:red" /></td>
 	</tr>
-
+	<tr>
+	<td><h:commandButton id="enable" value="Create Question" disabled="#{questions.createQuestionEnable}" action="#{questions.saveQuestion}"/></td>
+	<td><h:commandButton value="Close" action="#{questions.close}" /></td>
+	</tr>
 </table>
-	<p>
-		
-		<h:commandButton id="enable" value="Create Question" disabled="#{questions.createQuestionEnable}" action="#{questions.saveQuestion}"/> <h:commandButton value="Close" action="#{questions.back}" />
-	</p>
+<h:message for="enable" style="color:blue"></h:message>
 </h:form>
 </h:body>
 </f:view>
