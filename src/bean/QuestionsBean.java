@@ -19,7 +19,7 @@ public class QuestionsBean {
 	private List<Event> events;
 	private Event event;
 	private Date data;
-	private Vector<Question> questions;
+	private List<Question> questions;
 	private String question = "";
 	private float min_bet;
 	private boolean createQuestionDisable = true;
@@ -33,17 +33,20 @@ public class QuestionsBean {
 		this.data = data;
 	}	
 
-	public  void OnDateSelect(SelectEvent event) {
+	public void OnDateSelect(SelectEvent event) {
+		this.questions = null;
+		this.event = null;
 		facadeBL = FacadeBean.getBusinessLogic();
 		this.data = (Date)event.getObject();
 		this.events =  facadeBL.getEvents(data);
+		
 	}
 
 	public List<Event> getEvents() {
 		return events;
 	}
 
-	public void setEvents(Vector<Event> events) {
+	public void setEvents(List<Event> events) {
 		this.events = events;
 	}
 
@@ -53,11 +56,11 @@ public class QuestionsBean {
 
 	}
 
-	public Vector<Question> getQuestions() {
+	public List<Question> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestions(Vector<Question> questions) {
+	public void setQuestions(List<Question> questions) {
 		this.questions = questions;
 	}
 

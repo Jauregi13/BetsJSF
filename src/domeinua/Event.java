@@ -1,7 +1,9 @@
 package domeinua;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Vector;
 
 import javax.persistence.*;
@@ -14,14 +16,14 @@ public class Event implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Id @GeneratedValue
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer eventNumber;
 	private String description; 
 	private Date eventDate;
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
-	private Vector<Question> questions=new Vector<Question>();
+	@OneToMany(targetEntity=Question.class, mappedBy="event",fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	private List<Question> questions = new ArrayList<Question>();
 
-	public Vector<Question> getQuestions() {
+	public List<Question> getQuestions() {
 		return questions;
 	}
 

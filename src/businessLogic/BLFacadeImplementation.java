@@ -1,12 +1,14 @@
 package businessLogic;
+import java.util.Calendar;
 //hola
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
-
+import configuration.UtilDate;
 import dataAccess.DataAccessInterface;
+import dataAccess.HibernateDataAccess;
 import domeinua.Question;
 import domeinua.Event;
 import exceptions.EventFinished;
@@ -33,12 +35,9 @@ public class BLFacadeImplementation  implements BLFacade {
     public BLFacadeImplementation(DataAccessInterface da)  {
 		
 		System.out.println("Creating BLFacadeImplementation instance with DataAccess parameter");
-		da.emptyDatabase();
-		da.open();
-		da.initializeDB();
-		da.close();
 		
 		dbManager=da;		
+		dbManager.initializeDB();
 	}
 	
 
@@ -117,6 +116,29 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.initializeDB();
 		dbManager.close();
 	}
+	 
+	/*public static void main(String[] args) {
+		
+		BLFacadeImplementation facadeBl = new BLFacadeImplementation(new HibernateDataAccess());
+		
+		Calendar today = Calendar.getInstance();
+
+		int month=today.get(Calendar.MONTH);
+		month+=1;
+		int year=today.get(Calendar.YEAR);
+		if (month==12) { month=0; year+=1;}
+		
+		Date data = UtilDate.newDate(year,month,17);
+		List<Event> events = facadeBl.getEvents(data);
+		
+		for (Event event : events) {
+			
+			System.out.println(event.getDescription());
+			
+		}
+		
+		
+	}*/
 
 }
 
